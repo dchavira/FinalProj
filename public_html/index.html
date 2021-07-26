@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+  @author:Damian Chavira
+  This index file hosts the entire application and sends request to the server to GET and POST messages to display new messages.
+  Has ajaxFunctions.js to get functions and call them for event handling.
+-->
+<html lang="en">
+  <head>
+    <title>Final Project</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="ajaxFunctions.js"></script>
+
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div id="container">
+      <div id="addUser">
+        <div id="userInputs">
+          <h1>Add Users</h1>
+          <label for="username">Username:</label>
+          <input type="text" id="username" />
+
+          <label for="password">Password:</label>
+          <input type="password" id="password" />
+          <button type="submit" onclick="signUp()">Add User</button>
+        </div>
+      </div>
+      <div id="addItem">
+        <div id="itemInputs">
+          <h1>Add Items</h1>
+          <label for="title">Title:</label>
+          <input type="text" id="title" />
+
+          <label for="description">Description:</label>
+          <input type="text" id="description" />
+
+          <label for="image">Image:</label>
+          <input type="text" id="image" />
+
+          <label for="username">Price:</label>
+          <input type="number" id="price" />
+
+          <label for="status">Status:</label>
+          <input type="text" id="status" />
+
+          <label for="usernameItem">Username:</label>
+          <input type="text" id="usernameItem" />
+
+          <button type="submit" onclick="addItem()">Add Item</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
