@@ -13,7 +13,7 @@ songRouter.post("/add/song", (req, res) => {
     image: req.body.image,
     file: req.body.file,
   });
-  console.log(req.cookies);
+  
   if (!req.cookies["name"]) {
     res.send("Not logged in").status(401);
   } else {
