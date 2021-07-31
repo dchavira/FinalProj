@@ -1,0 +1,10 @@
+
+function createPost() {
+    let location = $("#new");
+    let format = "<form action="" method="post"> \
+    \
+    </form>"
+
+    $("#feed").css("top", "50%");
+    location.html();
+}

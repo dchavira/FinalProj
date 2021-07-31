@@ -1,0 +1,31 @@
+/**/
+
+body {
+    background: linear-gradient(to bottom right, #006666 0%, #003366 100%);
+    background-attachment: fixed;
+}
+
+#outer {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 25%;
+    left: 25%;
+    background-color: white;
+    border: 2px solid black;
+}
+
+#login {
+    position: relative;
+    width: 70%;
+    top: 18%;
+    left: 15%;
+    border: 2px solid black;
+    text-align: center;
+    padding-bottom: 10px;
+    background-color: white;
+}
+#create {
+    display: inline-block;
+    text-align: left;
+}
