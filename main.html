@@ -1,0 +1,55 @@
+<!--Melanie Gin
+This html file is a very simple layout for a login page. There is an authentication login 
+section and a section to create an account.
+It contains events to handle where the info goes.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+		<link href='mainstyle.css' rel='stylesheet'>
+		<script src='input.js'></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</head>
+	<body>
+        <h1>TITLE</h1>
+		<div id="nav">
+            <img scr="" id="pfp">
+            <p class="user-opts" onclick="viewProf();">Profile</p>
+            <p class="user-opts" onlick="editProf();">Edit Profile</p>
+            <p class="user-opts" onclick="logout();">Logout</p>
+            <br>
+            <p>Top 5 Songs</p>
+
+            <a href="help.html">
+                <img src="info_icon.png" alt="info icon" id="info">
+            </a>
+        </div>
+
+        <div id="search">
+            <select name="search-opts" id="descript">
+                <option value="artist">Artist</option>
+                <option value="album">Album</option>
+                <option value="song">Song</option>
+            </select>
+            
+        </div>
+        <input type="text" name="search-bar" id="search-bar">
+
+        <!--When a new post is clicked we will move meed down in css-->
+        <div id="new" name="new-post"></div>
+
+        <div id="feed">
+            
+            
+            <!--New posts will have the class posts embedded in AJAX-->
+        </div>
+
+        <img src="plus-icon.png" 
+            alt="pencil on paper icon" 
+            id="post-icon" 
+            onclick="createPost();">
+	</body>
+</html>
