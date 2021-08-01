@@ -4,9 +4,33 @@ const bcrypt = require("bcrypt");
 const db = require("../database");
 const User = require("../schema/user");
 const authRouter = express.Router();
+const UserModel = mongoose.model("user", User);
 
 authRouter.post("/login", (req, res) => {
-  res.cookie("name", "authenticated").status(200).send("logged in successful");
+  console.log(req.cookies);
+  const username = req.body.user_id;
+  const password = req.body.password;
+  UserModel.find({ username: req.body.username }).exec(async (err, results) => {
+    if (err) console.log(err);
+    if (results.length === 0) {
+      res.status(409).send("Error 409: User doesn't exist");
+    } else {
+      const hashed = results[0].password;
+      bcrypt
+        .compare(password, hashed || "")
+        .then(function (result) {
+          if (result) {
+            res
+              .cookie("username", results[0].username)
+              .status(200)
+              .send("Password was correct!");
+          } else res.status(401).send("Password was incorrect");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  });
 });
 
 authRouter.post("/logoff", (req, res) => {
@@ -18,7 +42,6 @@ authRouter.post("/logoff", (req, res) => {
 });
 
 authRouter.post("/signup", async (req, res) => {
-  const UserModel = mongoose.model("user", User);
   UserModel.find({ username: req.body.username }).exec(async (err, results) => {
     if (err) {
       console.log(err);
