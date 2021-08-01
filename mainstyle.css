@@ -54,6 +54,15 @@ select {
     box-sizing: border-box;
 }
 
+#new {
+    position: absolute;
+    width: 60%;
+    left: 30%;
+    top: 5%;
+    text-align: center;
+    background-color: white;
+}
+
 #feed {
     position: absolute;
     width: 60%;
