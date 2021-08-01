@@ -16,25 +16,26 @@ It contains events to handle where the info goes.
   <body>
     <h1>TITLE</h1>
     <div id="outer">
-      <div id="login">
+      <form action="" method="post" enctype="multipart/form-data">
         <h2>Create/Login</h2>
-        <form action="" method="post" enctype="multipart/form-data">
-          <label for="user">Username</label>
-          <input type="text" id="user" name="user" />
-          <br /><br />
+        <label for="user">Username</label>
+        <input type="text" id="user" name="user" />
+        <br /><br />
 
-          <label for="pass">Password</label>
-          <input type="password" id="pass" name="pass" />
-          <br /><br />
+        <label for="pass">Password</label>
+        <input type="password" id="pass" name="pass" />
+        <br /><br />
 
-          <div id="create">
-            <input type="file" accept="image/*" id="icon" name="photo" />
-            <br />
-            <button>Create</button>
-          </div>
-          <button onclick="login();">Login</button>
-        </form>
-      </div>
+        <div id="create">
+          <input type="file" accept="image/*" id="icon" name="photo" />
+          <br />
+          <button>Create</button>
+        </div>
+        <button onclick="login();">Login</button>
+      </form>
+      <a href="./pages/help.html">
+        <img src="./images/help-icon.png" alt="help icon" id="help">
+      </a>
     </div>
   </body>
 </html>

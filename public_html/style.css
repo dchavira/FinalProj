@@ -8,24 +8,30 @@ body {
 #outer {
     position: absolute;
     width: 50%;
-    height: 50%;
+    height: 350px;
     top: 25%;
     left: 25%;
     background-color: white;
     border: 2px solid black;
+    text-align: center;
 }
 
-#login {
-    position: relative;
-    width: 70%;
+form {
+    position: absolute;
     top: 18%;
     left: 15%;
-    border: 2px solid black;
-    text-align: center;
-    padding-bottom: 10px;
-    background-color: white;
+    width: 70%;
+    min-height: 60%;
+    border: 3px solid black;
 }
+
 #create {
     display: inline-block;
     text-align: left;
+}
+
+#help {
+    position: fixed;
+    width: 25px;
+    right: 25%;
 }
