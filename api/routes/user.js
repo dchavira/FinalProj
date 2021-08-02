@@ -1,14 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const userSchema = require("../schema/user");
-const postRouter = express.Router();
+const songSchema = require("../schema/song");
+const userRouter = express.Router();
 
-const UserModel = mongoose.model("user", userSchema);
+const SongModel = mongoose.model("songs", songSchema);
 
 //Adding Song
 //Check dups?
-postRouter.post("/add/user", (req, res) => {
-  var song = new UserModel(req.body);
+userRouter.post("/add/song", (req, res) => {
+  var song = new SongModel(req.body);
 
   if (!req.cookies["name"]) {
     res.send("Not logged in").status(401);
@@ -21,7 +21,7 @@ postRouter.post("/add/user", (req, res) => {
 });
 
 //Find Song(s)/Artists/Albums
-postRouter.get("/find/:request/:name", (req, res) => {
+userRouter.get("/find/:request/:name", (req, res) => {
   let subject = req.params.request.toLowerCase();
   let name = req.params.name.toLowerCase();
   name = name.charAt(0).toUpperCase() + name.slice(1);
@@ -37,7 +37,7 @@ postRouter.get("/find/:request/:name", (req, res) => {
     search = { album: name };
   }
 
-  UserModel.find(search).exec(function (err, results) {
+  SongModel.find(search).exec(function (err, results) {
     if (err) {
       throw err;
     } else if (results.length == 0) {
@@ -48,4 +48,4 @@ postRouter.get("/find/:request/:name", (req, res) => {
   });
 });
 
-module.exports = postRouter;
+module.exports = userRouter;
