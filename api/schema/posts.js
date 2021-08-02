@@ -3,9 +3,10 @@ const Song = require("./song");
 var Schema = mongoose.Schema;
 
 var PostSchema = new Schema({
-  username: string,
-  text: string,
-  image: string,
-  song: Song,
+  username: String,
+  text: String,
+  image: String,
+  date: String,
+  song: Song || null,
 });
 module.exports = PostSchema;
