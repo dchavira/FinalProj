@@ -1,13 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const songSchema = require("../schema/song");
-const songRouter = express.Router();
+const userRouter = express.Router();
 
 const SongModel = mongoose.model("songs", songSchema);
 
 //Adding Song
 //Check dups?
-songRouter.post("/add/song", (req, res) => {
+userRouter.post("/add/song", (req, res) => {
   var song = new SongModel(req.body);
 
   if (!req.cookies["name"]) {
@@ -21,7 +21,7 @@ songRouter.post("/add/song", (req, res) => {
 });
 
 //Find Song(s)/Artists/Albums
-songRouter.get("/find/:request/:name", (req, res) => {
+userRouter.get("/find/:request/:name", (req, res) => {
   let subject = req.params.request.toLowerCase();
   let name = req.params.name.toLowerCase();
   name = name.charAt(0).toUpperCase() + name.slice(1);
@@ -48,4 +48,4 @@ songRouter.get("/find/:request/:name", (req, res) => {
   });
 });
 
-module.exports = songRouter;
+module.exports = userRouter;

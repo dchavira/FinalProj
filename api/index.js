@@ -2,7 +2,10 @@ const express = require("express");
 const apiRouter = express.Router();
 const authRouter = require("./routes/auth");
 const songRouter = require("./routes/song");
-
+const userRouter = require("./routes/user");
+const postRouter = require("./routes/post");
 apiRouter.use("/auth", authRouter);
 apiRouter.use("/song", songRouter);
+apiRouter.use("/user", userRouter);
+apiRouter.use("/post", postRouter);
 module.exports = apiRouter;
