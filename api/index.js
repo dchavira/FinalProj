@@ -65,8 +65,8 @@ function listPost(feature) {
                     //Have list of items in their own div to display in inner html
                     list += '<div class="posts" id="' + posts[i] + '"><h3>' + posts[i].username + 
                             '</h3><br><br>' + posts[i].text + '<button onclick="listPost(' + post[i].username +
-                            ');">View Profile</button><button onclick="expand(' + posts[i] + ');">Expand</button>
-                            '</div>';
+                            ');">View Profile</button><button onclick="expand(' + posts[i] + ');">Expand</button> \
+                            </div>';
                 }
                 $("#feed").html(list);
             }
