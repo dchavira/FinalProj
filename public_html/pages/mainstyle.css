@@ -1,4 +1,10 @@
-/**/
+/*Melanie Gin and Damian Chavira
+This CSS file controls the styling and layout of the main MusicBook page
+and the help page. Such as the navigation panel, the feed view, search,
+buttons, etc.*/
+* {
+    box-sizing: border-box;
+}
 
 body {
     background: linear-gradient(to bottom right, #006666 0%, #003366 100%);
@@ -6,19 +12,27 @@ body {
 }
 
 h1 {
-    position: fixed;
+    padding-bottom: 10%;
 }
 
 #nav {
     position: fixed;
-    top: 10%;
+    top: 0;
     left: 0;
     width: 20%;
-    height: 90%;
+    height: 100%;
     border: 2px solid black;
     text-align: center;
     background-color: white;
     padding-top: 20px;
+}
+
+#username {
+    font-weight: bold;
+}
+
+p {
+    font-size: 18px;
 }
 
 .user-opts {
@@ -33,16 +47,13 @@ h1 {
     background-size: cover;
 }
 
-#search {
+select {
     position: absolute;
     top: 10px;
-    left: 30%;
-    font-size: 20px;
+    left: 34%;
+    font-size: 16px;
     display: inline-block;
     box-sizing: border-box;
-}
-
-select {
     width: 100px;
 }
 
@@ -51,6 +62,7 @@ select {
     top: 10px;
     left: 40%;
     width: 50%;
+    font-size: 16px;
     box-sizing: border-box;
 }
 
@@ -64,6 +76,7 @@ select {
 }
 
 #feed {
+    font-size: 18px;
     position: absolute;
     width: 60%;
     left: 30%;

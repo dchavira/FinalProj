@@ -7,33 +7,28 @@ It contains events to handle where the info goes.
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title></title>
+    <title>MusicBook: Login</title>
     <meta charset="utf-8" />
     <link href="style.css" rel="stylesheet" />
-    <script src="input.js"></script>
+    <script src="index.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
-    <h1>TITLE</h1>
+    <h1>MusicBook</h1>
     <div id="outer">
-      <form action="" method="post" enctype="multipart/form-data">
+      <form action="/api/auth/signup" method="post" enctype="multipart/form-data">
         <h2>Create/Login</h2>
-        <label for="user">Username</label>
-        <input type="text" id="user" name="user" />
-        <br /><br />
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username">
+        <br><br>
 
-        <label for="pass">Password</label>
-        <input type="password" id="pass" name="pass" />
-        <br /><br />
-
-        <div id="create">
-          <label for="icon">Choose profile icon:</label><br>
-          <input type="file" accept="image/*" id="icon" name="photo" />
-          <br />
-          <button onclick="createUser();">Create</button>
-        </div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password">
+        <br><br>
+        <button>Create</button>
         <button onclick="login();">Login</button>
       </form>
+      
       <a href="./pages/help.html">
         <img src="./images/help-icon.png" alt="help icon" id="help">
       </a>

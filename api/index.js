@@ -10,24 +10,6 @@ apiRouter.use("/user", userRouter);
 apiRouter.use("/post", postRouter);
 module.exports = apiRouter;
 
-//FINISH THIS!!!!!!!!!!!!!!!!
-function createUser() {
-    let uname = $('#user').val();
-	let pword = $('#password').val();
-	
-
-	$.ajax({
-		url: '/',
-		data: { user: userJSON },
-		method: 'POST',
-		success: function(results) {
-			if (results == ) {
-				$(window).attr('location', "../public_html/pages/main.html");
-			} else { alert( results ); }
-		}
-	});
-}
-
 // This function takes the user to the main page when they are verified, else an alert
 function login() {
     $.ajax({
@@ -40,8 +22,8 @@ function login() {
                     $(window).attr('location', "../public_html/pages/main.html");
                 } else { alert(results)}
             }
-        };
-    });
+        }
+    })
 }
 
 //This function logs off the user and takes them back to the login page
@@ -56,7 +38,7 @@ function logout() {
                     $(window).attr('location', "../public_html/index.html");
                 } else { alert("Something went wrong logging off")}
             }
-        };
+        }
     });
 }
 
@@ -74,7 +56,7 @@ function listPost(feature) {
         url: request,
         method: 'GET',
         success: function(results, error) {
-            if error {}
+            if (error) {}
             else{
                 let posts = JSON.parse(results);
                 let list = '';
@@ -87,23 +69,23 @@ function listPost(feature) {
                             '</div>';
                 }
                 $("#feed").html(list);
-            };
-        };
+            }
+        }
     });
 }
 
 function expand(id) {
-    $(#id).css("height", "auto")
+    $("#id").css("height", "auto")
 }
 
 function pickFeature(feature) {
     if (feature == "search") {
-        let descrip = $(#descript).val();
-        let search = $(#search-bar).val();
-        return = "/find/" + descrip + "/" + search
+        let descrip = $("#descript").val();
+        let search = $("#search-bar").val();
+        return "/find/" + descrip + "/" + search
     } else if (feature = "self") {
-        return = "/api/post/get/posts"
+        return "/api/post/get/posts"
     } else {
-        return = "/api/post/get/posts/username"
+        return "/api/post/get/posts/username"
     }
 }
