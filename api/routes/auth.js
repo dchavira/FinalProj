@@ -52,7 +52,6 @@ authRouter.post("/signup", async (req, res) => {
           const user = new UserModel({
             username: req.body.username,
             password: hash,
-            friends: [],
             topSongs: [],
             userPosts: [],
           });
