@@ -104,6 +104,7 @@ textarea {
     top: 20px;
     padding: 10px 0;
     box-sizing: border-box;
+    overflow-y: auto;
 }
 
 #help {
