@@ -1,12 +1,13 @@
 //
 function createUser() {
+    event.preventDefault();
     let uname = $('#username').val();
 	let pword = $('#password').val();
 	let user = {username: uname, password: pword};
-
+    let userString=JSON.stringify(user)
 	$.ajax({
 		url: '/api/auth/signup',
-		data: user,
+		data: userString,
 		method: 'POST',
 		success: function(results, error) {
             if (error) { alert("Something went wrong. Refresh and try again.")

@@ -43,15 +43,16 @@ authRouter.post("/logoff", (req, res) => {
 
 authRouter.post("/signup", async (req, res) => {
   console.log("hello")
-  UserModel.find({ username: req.body.username }).exec(async (err, results) => {
+  let data=JSON.parse(req.body)
+  UserModel.find({ username: data.username }).exec(async (err, results) => {
     if (err) {
       console.log(err);
     } else {
       if (results.length === 0) {
         const salt = await bcrypt.genSalt(10);
-        bcrypt.hash(req.body.password, salt).then(async (hash) => {
+        bcrypt.hash(data.password, salt).then(async (hash) => {
           const user = new UserModel({
-            username: req.body.username,
+            username: data.username,
             password: hash,
             topSongs: [],
             userPosts: [],
