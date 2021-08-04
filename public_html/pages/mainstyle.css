@@ -83,7 +83,12 @@ h2{
     top: 20px;
     text-align: center;
     background-color: white;
-    padding: 20px;
+}
+
+#new-post img {
+    float: right;
+    width: 25px;
+    cursor: pointer;
 }
 
 textarea {

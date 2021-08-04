@@ -10,12 +10,12 @@
 		<script src='../input.js'></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	</head>
-	<body onload="listPost('feed');">
+	<body onload="getUsername();">
         <div id="nav">
             <h1 onclick="listPost('feed');">MusicBook</h1>
 		
             <img scr="" id="pfp">
-            <p onload="getUsername();" id="username"></p>
+            <p id="user"></p>
             <p class="user-opts" onclick="listPost('self');">Profile</p>
             <p class="user-opts" onclick="editProf();">Edit Profile</p>
             <p class="user-opts" onclick="logout();">Logout</p>

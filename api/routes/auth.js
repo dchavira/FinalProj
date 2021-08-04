@@ -6,10 +6,12 @@ const User = require("../schema/user");
 const authRouter = express.Router();
 const UserModel = mongoose.model("user", User);
 
+
 authRouter.post("/login", (req, res) => {
-  const username = req.body.user_id;
-  const password = req.body.password;
-  UserModel.find({ username: req.body.username }).exec(async (err, results) => {
+  const userObj = JSON.parse(req.body.user)
+  const username = userObj.user_id;
+  const password = userObj.password;
+  UserModel.find({ username: userObj.username }).exec(async (err, results) => {
     if (err) console.log(err);
     if (results.length === 0) {
       res.status(409).send("Error 409: User doesn't exist");

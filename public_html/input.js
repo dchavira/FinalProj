@@ -1,6 +1,11 @@
+
+//Couldn't get the req.cookies to work so here we are
+var displayName = '';
+
 //
 function createUser() {
     let uname = $('#username').val();
+    displayName = uname;
 	let pword = $('#password').val();
 	let user = {username: uname, password: pword};
     let userString=JSON.stringify(user)
@@ -20,9 +25,17 @@ function createUser() {
 
 // This function takes the user to the main page when they are verified, else an alert
 function login() {
+    let uname = $('#username').val();
+    displayName = uname;
+    console.log(displayName)
+	let pword = $('#password').val();
+    let user = {username: uname, password: pword};
+    let userString=JSON.stringify(user)
+
     $.ajax({
         url: "/api/auth/login",
-        method: 'GET',
+        data: {user: userString},
+        method: 'POST',
         success: function(results) {
             $(window).attr('location', "/pages/main.html");
         }
@@ -44,9 +57,8 @@ function logout() {
 
 //This function returns the username to display in the nav panel
 function getUsername() {
-    let cookie = $(document).Cookies.get("username").split("=")
-    let uname = cookie[1]
-    $("#username").val() = uname
+    console.log(displayName)
+    $("#user").html(displayName)
 }
 
 /*This function displays the data as a post on the feed view. Such as every user post, the user's
@@ -57,24 +69,21 @@ function listPost(feature) {
     $.ajax({
         url: request,
         method: 'GET',
-        success: function(results, error) {
-            if (error) {}
-            else{
-                let posts = JSON.parse(results);
-                let list = '';
-                for (var i in posts) {
-                    let removeButton = "";
-                    if (feature == "self") {
-                        removeButton = '<li><button onclick="' + removePost(posts[i]._id); + '">Expand</button></li>'
-                    }
-                    //Have list of items in their own div to display in inner html
-                    list += '<div class="posts" id="' + posts[i]._id + '"><ul><li><button onclick="listPost(' + 
-                            post[i].username + ');">View Profile</button></li><li><button onclick="expand(' + 
-                            posts[i]._id + ');">Expand</button></li>' + removeButton + '</ul><h3>' + 
-                            posts[i].username + '</h3><br><br>' + posts[i].text + '</div>'
+        success: function(results) {
+            let posts = JSON.parse(results);
+            let list = '';
+            for (var i in posts) {
+                let removeButton = "";
+                if (feature == "self") {
+                    removeButton = '<li><button onclick="' + removePost(posts[i]._id); + '">Expand</button></li>'
                 }
-                $("#feed").html(list);
+                //Have list of items in their own div to display in inner html
+                list += '<div class="posts" id="' + posts[i]._id + '"><ul><li><button onclick="listPost(' + 
+                        post[i].username + ');">View Profile</button></li><li><button onclick="expand(' + 
+                        posts[i]._id + ');">Expand</button></li>' + removeButton + '</ul><h3>' + 
+                        posts[i].username + '</h3><br><br>' + posts[i].text + '</div>'
             }
+            $("#feed").html(list);
         }
     });
 }
@@ -105,18 +114,16 @@ function removePost(id) {
         url: "/api/post/delete",
         data: id,
         method: 'DELETE',
-        success: function(results, error) {
-            if (error){ alert("Something went wrong deleting the post")
-            } else {
-                alert(results);
-            }
+        success: function(results) {
+            alert(results);
         }
     });
 }
 
 //This function creates a div with textboxes above the feed for the user to create a post
 function newPost() {
-    let form = "<h2>New Post</h2><textarea>Review/opinion</textarea><br><br> \
+    let form = "<img src='/images/exit.jpg' onclick='exitPost();'><h2>New Post</h2> \
+                <textarea>Review/opinion</textarea><br><br> \
                 <h3>Song:</h3><label for=songTitle>Title:</label> \
                 <input type='text' id='songTitle' name='songTitle'><br><br>\
                 <label for=songArtist>Artist:</label> \
@@ -125,7 +132,11 @@ function newPost() {
                 <input type='text' id='songAlbum' name='songAlbum'><br><br>\
                 <button onclick='" + createPost(); + "'>Post</button>"
     
-    $("#new-post").html(form)
+    $("#new-post").css("padding", "20px").html(form)
+}
+
+function exitPost() {
+    $("#new-post").css("padding", "0px").html('')
 }
 
 //
