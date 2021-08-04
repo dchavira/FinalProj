@@ -33,8 +33,9 @@ authRouter.post("/login", (req, res) => {
 });
 
 authRouter.post("/logoff", (req, res) => {
+  console.log("here");
   res
-    .clearCookie("name")
+    .clearCookie("username")
     .clearCookie("level")
     .status(200)
     .send("logged off successful");

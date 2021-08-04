@@ -35,13 +35,11 @@ function logout() {
         url: "/api/auth/logoff",
         method: 'POST',
         success: function(results, error) {
-            if (error){ alert("Something went wrong")
-            } else {
                 if (results == "logged off successful") {
                     $(window).attr('location', "../public_html/index.html");
                 } else { alert("Something went wrong logging off")}
             }
-        }
+        
     });
 }
 
