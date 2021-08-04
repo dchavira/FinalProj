@@ -22,7 +22,7 @@ body {
     text-align: center;
 }
 
-form {
+#inner {
     position: absolute;
     top: 18%;
     left: 15%;

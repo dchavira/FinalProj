@@ -48,9 +48,9 @@ p {
 }
 
 select {
-    position: absolute;
+    position: relative;
     top: 10px;
-    left: 34%;
+    left: 33%;
     font-size: 16px;
     display: inline-block;
     box-sizing: border-box;
@@ -58,12 +58,18 @@ select {
 }
 
 #search-bar {
-    position: absolute;
+    position: relative;
     top: 10px;
-    left: 40%;
-    width: 50%;
+    left: 32%;
+    width: 45%;
     font-size: 16px;
-    box-sizing: border-box;
+}
+
+#search-button {
+    position: relative;
+    top: 10px;
+    left: 30%;
+    font-size: 16px;
 }
 
 #new {
@@ -93,15 +99,6 @@ select {
     width: 25px;
 }
 
-#post-icon {
-    position: fixed;
-    bottom: 20px;
-    right: 3%; 
-    width: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
 .posts {
     position: relative;
     width: 100%;
@@ -109,4 +106,16 @@ select {
     background-color: white;
     overflow: hidden;
     margin-bottom: 15px;
+    text-align: left;
+    padding: 10px;
+}
+
+ul {
+    float: right;
+    list-style: none;
+}
+
+
+.posts button {
+    width: 100%;
 }
