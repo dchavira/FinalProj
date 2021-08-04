@@ -38,16 +38,59 @@
         <input type="text" name="search-bar" id="search-bar">
         <button onclick="listPost('search');" id ="search-button">Search</button>
 
-        <!--When a new post is clicked we will move meed down in css-->
-        <div id="new-post"></div>
+        <!--When a new post is clicked we will move feed down in css-->
+        <div id="new-post"><h2>New Post</h2><textarea>Review/opinion</textarea><br><br>
+            <h3>Song:</h3><label for=songTitle>Title:</label> 
+            <input type='text' id='songTitle' name='songTitle'><br><br>
+            <label for=songArtist>Artist:</label> 
+            <input type='text' id='songArtist' name='songArtist'><br><br>
+            <label for=songAlbum>Album:</label>
+            <input type='text' id='songAlbum' name='songAlbum'><br><br>
+            <button>Post</button></div><br>
 
         <div id="feed">
+            <div class="posts" id="hi">
+                <ul>
+                    <li><button onclick="listPost('self');">View Profile</button></li>
+                    <li><button onclick="expand('hi')">Expand</button></li>
+                    
+                </ul>
+                <h3>username</h3>
+                blah blah blah
+                <br>
+                "deleted"
+                <br>
+                "deleted"
+                blah blah blah
+                <br>
+                "deleted"
+                <br>
+                "deleted"
+            </div>
+            <div class="posts" id="">
+                <ul>
+                    <li><button onclick="listPost('self');">View Profile</button></li>
+                    <li><button onclick="expand('')">Expand</button></li>
+                    
+                </ul>
+                <h3>username</h3>
+                blah blah blah
+                <br>
+                "deleted"
+                <br>
+                "deleted"
+                blah blah blah
+                <br>
+                "deleted"
+                <br>
+                "deleted"
+            </div>
             <!--New posts will have the class posts embedded in AJAX-->
         </div>
 
         <img src="../images/plus-icon.png" 
             alt="pencil on paper icon" 
             id="post-icon" 
-            onclick="createPost();">
+            onclick="newPost();">
 	</body>
 </html>

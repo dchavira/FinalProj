@@ -10,12 +10,12 @@ const SongModel = mongoose.model("song", songSchema);
 //Adding Song
 //Check dups?
 postRouter.post("/add/post", (req, res) => {
-  let post = JSON.parse(req.body.post);
-  var newSong = new SongModel(post.song);
+  let postObj = JSON.parse(req.body.post);
+  var newSong = new SongModel(postObj.song);
   var post = new PostModel({
-    username: post.username,
-    text: post.text,
-    image: post.image,
+    username: postObj.username,
+    text: postObj.text,
+    image: postObj.image,
     date: Date(),
     song: newSong,
   });

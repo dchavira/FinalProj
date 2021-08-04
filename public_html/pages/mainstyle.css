@@ -72,22 +72,31 @@ select {
     font-size: 16px;
 }
 
-#new {
-    position: absolute;
+h2{
+    text-align: left;
+}
+
+#new-post {
+    position: relative;
     width: 60%;
     left: 30%;
-    top: 5%;
+    top: 20px;
     text-align: center;
     background-color: white;
+    padding: 20px;
+}
+
+textarea {
+    width: 60%;
+    height: 200px;
 }
 
 #feed {
     font-size: 18px;
-    position: absolute;
+    position: relative;
     width: 60%;
     left: 30%;
-    top: 5%;
-    text-align: center;
+    top: 20px;
     padding: 10px 0;
     box-sizing: border-box;
 }
@@ -115,7 +124,15 @@ ul {
     list-style: none;
 }
 
-
 .posts button {
     width: 100%;
+}
+
+#post-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 3%; 
+    width: 45px;
+    border-radius: 50%;
+    cursor: pointer;
 }
