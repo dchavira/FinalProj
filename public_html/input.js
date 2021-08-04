@@ -5,7 +5,7 @@ var displayName = '';
 //
 function createUser() {
     let uname = $('#username').val();
-    displayName = uname;
+    displayName = $('#username').val();
 	let pword = $('#password').val();
 	let user = {username: uname, password: pword};
     let userString=JSON.stringify(user)
@@ -26,8 +26,7 @@ function createUser() {
 // This function takes the user to the main page when they are verified, else an alert
 function login() {
     let uname = $('#username').val();
-    displayName = uname;
-    console.log(displayName)
+    displayName = $('#username').val();
 	let pword = $('#password').val();
     let user = {username: uname, password: pword};
     let userString=JSON.stringify(user)
@@ -57,9 +56,23 @@ function logout() {
 
 //This function returns the username to display in the nav panel
 function getUsername() {
-    console.log(displayName)
     $("#user").html(displayName)
 }
+
+//This function allows the user to change their username or password
+function editProf() {
+	let edits = "<img src='/images/exit.jpg' onclick='exitPost();'>" +
+		"<h2>Edit profile:</h2>" +
+  		"<label for='uname'>Username:</label>" +
+		"<input type='text' id='uname' name='uname'>" +
+		"<button onclick='changeData(\"user\")'<br><br>" +
+		"<label for='pword'>Password:</label>" +
+		"<input type='password' id='pword' name='pword'>" +
+		"<button onclick='changeData(\"pass\")'"
+	
+	$("new-post")..css("padding", "20px")html(edits);
+}
+
 
 /*This function displays the data as a post on the feed view. Such as every user post, the user's
 own posts, another user's posts, etc. */
