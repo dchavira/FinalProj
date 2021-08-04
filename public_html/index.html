@@ -1,7 +1,7 @@
-<!--Melanie Gin
-This html file is a very simple layout for a login page. There is an authentication login 
-section and a section to create an account.
-It contains events to handle where the info goes.
+<!--Melanie Gin and Damian Chavira
+  This html file is a very simple layout for a login page. The user can login and
+  create an account with only two inputs and two buttons "Create" and "Login".
+  It contains events to handle where the info goes.
 -->
 
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ It contains events to handle where the info goes.
     <title>MusicBook: Login</title>
     <meta charset="utf-8" />
     <link href="style.css" rel="stylesheet" />
-    <script src="index.js"></script>
+    <script src="input.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>
@@ -25,7 +25,7 @@ It contains events to handle where the info goes.
         <label for="password">Password</label>
         <input type="password" id="password" name="password">
         <br><br>
-        <button>Create</button>
+        <button onclick="createUser();">Create</button>
         <button onclick="login();">Login</button>
       </form>
       

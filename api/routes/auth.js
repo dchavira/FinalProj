@@ -42,6 +42,7 @@ authRouter.post("/logoff", (req, res) => {
 });
 
 authRouter.post("/signup", async (req, res) => {
+  console.log("hello")
   UserModel.find({ username: req.body.username }).exec(async (err, results) => {
     if (err) {
       console.log(err);
