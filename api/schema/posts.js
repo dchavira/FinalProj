@@ -5,8 +5,7 @@ var Schema = mongoose.Schema;
 var PostSchema = new Schema({
   username: String,
   text: String,
-  image: String,
-  date: String,
+  date: {type: Date, default: Date.now},
   song: Song || null,
 });
 module.exports = PostSchema;

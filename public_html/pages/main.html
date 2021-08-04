@@ -4,43 +4,44 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title></title>
+		<title>MusicBook</title>
 		<meta charset="utf-8">
 		<link href='mainstyle.css' rel='stylesheet'>
-		<script src='input.js'></script>
+		<script src='../input.js'></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	</head>
-	<body>
-        <h1>TITLE</h1>
-		<div id="nav">
+	<body onload="listPost('feed');">
+        <div id="nav">
+            <h1 onclick="listPost('feed');">MusicBook</h1>
+		
             <img scr="" id="pfp">
-            <p class="user-opts" onclick="viewProf();">Profile</p>
-            <p class="user-opts" onlick="editProf();">Edit Profile</p>
+            <p onload="getUsername();" id="username"></p>
+            <p class="user-opts" onclick="listPost('self');">Profile</p>
+            <p class="user-opts" onclick="editProf();">Edit Profile</p>
             <p class="user-opts" onclick="logout();">Logout</p>
             <br>
-            <p>Top 5 Songs</p>
+            <p><b>Top 5 Songs</b></p>
 
             <a href="./help.html">
                 <img src="../images/help-icon.png" alt="help icon" id="help">
             </a>
         </div>
 
-        <div id="search">
-            <select name="search-opts" id="descript">
-                <option value="artist">Artist</option>
-                <option value="album">Album</option>
-                <option value="song">Song</option>
-            </select>
-            
-        </div>
+        
+        <select name="search-opts" id="descript">
+            <option value="artist">Artist</option>
+            <option value="album">Album</option>
+            <option value="song">Song</option>
+            <option value="User">User</option>
+        </select>
+        
         <input type="text" name="search-bar" id="search-bar">
+        <button onclick="listPost('search');" id ="search-button">Search</button>
 
         <!--When a new post is clicked we will move meed down in css-->
-        <div id="new" name="new-post"></div>
+        <div id="new-post"></div>
 
         <div id="feed">
-            
-            
             <!--New posts will have the class posts embedded in AJAX-->
         </div>
 
