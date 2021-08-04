@@ -33,12 +33,7 @@ authRouter.post("/login", (req, res) => {
 });
 
 authRouter.post("/logoff", (req, res) => {
-  console.log("here");
-  res
-    .clearCookie("username")
-    .clearCookie("level")
-    .status(200)
-    .send("logged off successful");
+  res.clearCookie("username").status(200).send("logged off successful");
 });
 
 authRouter.post("/signup", async (req, res) => {
