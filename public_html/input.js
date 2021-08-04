@@ -34,20 +34,17 @@ function logout() {
     $.ajax({
         url: "/api/auth/logoff",
         method: 'POST',
-        success: function(results, error) {
-            if (error){ alert("Something went wrong")
-            } else {
-                if (results == "logged off successful") {
+        success: function(results) {
+            if (results == "logged off successful") {
                     $(window).attr('location', "../public_html/index.html");
-                } else { alert("Something went wrong logging off")}
-            }
+            } else { alert("Something went wrong logging off") }
         }
     });
 }
 
 //This function returns the username to display in the nav panel
 function getUsername() {
-    let cookie = Cookies.get("username").split("=")
+    let cookie = $(document).Cookies.get("username").split("=")
     let uname = cookie[1]
     $("#username").val() = uname
 }
@@ -133,14 +130,13 @@ function newPost() {
 
 //
 function createPost() {
-    let cookie = Cookies.get("username").split("=")
-    let uname = cookie[1]
+    
     let body = $('textarea').val();
     let songTitle = $('#songTitle').val();
     let songArtist = $('#songArtist').val();
     let songAlbum = $('#songAlbum').val();
 
-    let post = { username: uname, text: body, song: {title: songTitle,
+    let post = {text: body, song: {title: songTitle,
         artist: songArtist, album: songAlbum} };
     let postStr = JSON.stringify(post);
     
