@@ -116,3 +116,40 @@ function removePost(id) {
         }
     });
 }
+
+//This function creates a div with textboxes above the feed for the user to create a post
+function newPost() {
+    let form = "<h2>New Post</h2><textarea>Review/opinion</textarea><br><br> \
+                <h3>Song:</h3><label for=songTitle>Title:</label> \
+                <input type='text' id='songTitle' name='songTitle'><br><br>\
+                <label for=songArtist>Artist:</label> \
+                <input type='text' id='songArtist' name='songArtist'><br><br>\
+                <label for=songAlbum>Album:</label> \
+                <input type='text' id='songAlbum' name='songAlbum'><br><br>\
+                <button onclick='" + createPost(); + "'>Post</button>"
+    
+    $("#new-post").html(form)
+}
+
+//
+function createPost() {
+    let cookie = Cookies.get("username").split("=")
+    let uname = cookie[1]
+    let body = $('textarea').val();
+    let songTitle = $('#songTitle').val();
+    let songArtist = $('#songArtist').val();
+    let songAlbum = $('#songAlbum').val();
+
+    let post = { username: uname, text: body, song: {title: songTitle,
+        artist: songArtist, album: songAlbum} };
+    let postStr = JSON.stringify(post);
+    
+    $.ajax({
+        url: "api/post/add/post",
+        data: {post: postStr},
+        method: 'POST',
+        success: function(results) {
+            listPost('feed');
+        }
+    });
+}
