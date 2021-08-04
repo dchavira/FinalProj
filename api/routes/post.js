@@ -32,6 +32,15 @@ postRouter.post("/add/post", (req, res) => {
   }
 });
 
+postRouter.get("/get/:username", (req, res) => {
+  const user = req.params.username;
+  PostModel.find({ username: user }).exec((err, results) => {
+    if (err) res.send(err);
+    else {
+      res.status(200).send(results);
+    }
+  });
+});
 //Get all posts
 postRouter.get("/get/posts", (req, res) => {
   const posts = PostModel.find().exec((err, results) => {

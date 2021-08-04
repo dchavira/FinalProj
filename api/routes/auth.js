@@ -6,8 +6,7 @@ const User = require("../schema/user");
 const authRouter = express.Router();
 const UserModel = mongoose.model("user", User);
 
-authRouter.get("/login", (req, res) => {
-  console.log(req.cookies);
+authRouter.post("/login", (req, res) => {
   const username = req.body.user_id;
   const password = req.body.password;
   UserModel.find({ username: req.body.username }).exec(async (err, results) => {
@@ -42,7 +41,7 @@ authRouter.post("/logoff", (req, res) => {
 });
 
 authRouter.post("/signup", async (req, res) => {
-  let data=JSON.parse(req.body.user)
+  let data = JSON.parse(req.body.user);
   UserModel.find({ username: data.username }).exec(async (err, results) => {
     if (err) {
       console.log(err);
