@@ -13,6 +13,12 @@ body {
 
 h1 {
     padding-bottom: 10%;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: black;
 }
 
 #nav {
