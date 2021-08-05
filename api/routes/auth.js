@@ -39,6 +39,16 @@ authRouter.get("/get/username", (req, res)=>{
   res.send(uname);
 })
 
+authRouter.get("/get/pfp", (req, res)=>{
+  let uname = req.cookies.username.username;
+  UserModel.find({username: uname}).exec((err, user)=> {
+    if (err) {console.log("Error getting user")
+    } else {
+      res.send(user[0].image);
+    }
+  })
+})
+
 authRouter.post("/logoff", (req, res) => {
   res.clearCookie("username").status(200).send("logged off successful");
 });
@@ -55,6 +65,7 @@ authRouter.post("/signup", async (req, res) => {
           const user = new UserModel({
             username: data.username,
             password: hash,
+            image: data.image,
             topSongs: [],
             userPosts: [],
           });

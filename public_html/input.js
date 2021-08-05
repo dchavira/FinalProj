@@ -1,11 +1,14 @@
 /*Melanie Gin and Damian Chavira
 This JS file is our client server, where we hold the ajax. */
 
-//
+//This function creates a new account (if the username is not taken)
 function createUser() {
     let uname = $('#username').val();
-	let user = {username: uname, password: pword};
+    let pword = $('#password').val();
+	let pic = pickPFP();
+    let user = {username: uname, password: pword, image: pic};
     let userString=JSON.stringify(user)
+    
     
 	$.ajax({
 		url: '/api/auth/signup',
@@ -14,10 +17,17 @@ function createUser() {
 		success: function(results) {
             $(window).attr('location', "/pages/main.html");
 		},
-        error: function(err) {
-            alert("Username already exists");
+        error: function(XHR, status, err) {
+            alert(XHR.responseText);
         }
 	});
+}
+
+//This function randomly chooses a pfp for the user
+function pickPFP() {
+    let num = Math.floor(Math.random() * (5-1)+1);
+    let imgURL = "../images/" + num + ".jpg";
+    return imgURL;
 }
 
 // This function takes the user to the main page when they are verified, else an alert
@@ -65,6 +75,17 @@ function getUsername() {
     
 }
 
+//
+function displayPFP() {
+    $.ajax({
+        url: "/api/auth/get/pfp",
+        method: 'GET',
+        success: function(results) {
+           $("#pfp").attr("src", results)
+        }
+    });
+}
+
 //This function allows the user to change their username or password
 function editProf() {
 	let edits = "<img src='/images/exit.jpg' onclick='exitPost();'>" +
@@ -99,8 +120,9 @@ function listPost(feature) {
                 //Have list of items in their own div to display in inner html
                 list += '<div class="posts" id="' + posts[i]._id + '"><ul><li><button onclick="listPost(' + 
                         post[i].username + ');">View Profile</button></li><li><button onclick="expand(' + 
-                        posts[i]._id + ');">Expand</button></li>' + removeButton + '</ul><h3>' + 
-                        posts[i].username + '</h3><br><br>' + posts[i].text + '</div>'
+                        posts[i]._id + ');">Expand</button></li>' + removeButton + '</ul><img src=' +
+                        posts[i].image + ' alt="user-icon"><h3>' + posts[i].username + '</h3><br><br>' + 
+                        posts[i].text + '</div>'
             }
             $("#feed").html(list);
         }
@@ -178,4 +200,12 @@ function createPost() {
             listPost('feed');
         }
     });
+}
+
+/*This function just calls the functions to display the feed, username, and pfp on
+initial load*/
+function firstLoad() {
+    getUsername();
+    displayPFP();
+    listPost('feed');
 }

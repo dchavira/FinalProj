@@ -130,6 +130,13 @@ ul {
     list-style: none;
 }
 
+.posts img {
+    float: left;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+
 .posts button {
     width: 100%;
 }
@@ -141,4 +148,29 @@ ul {
     width: 45px;
     border-radius: 50%;
     cursor: pointer;
+}
+
+#help-feed {
+    position: absolute;
+    top: 0;
+    background-color: white; 
+    left: 15%; 
+    padding: 10px;
+    text-align: center;
+    width: 70%;
+}
+
+#help-feed p {
+    margin-left: 10%;
+    width: 80%;
+    font-size: 20px;
+}
+
+#help-feed h2 {
+    padding-top: 10px;
+    text-align: center;
+}
+
+.resize {
+    width: 100%;
 }
