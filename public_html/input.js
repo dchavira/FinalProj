@@ -75,7 +75,7 @@ function getUsername() {
     
 }
 
-//
+//This function displays the user's profile picture in the navigation panel
 function displayPFP() {
     $.ajax({
         url: "/api/auth/get/pfp",
@@ -86,7 +86,7 @@ function displayPFP() {
     });
 }
 
-//This function allows the user to change their username or password
+//This function allows the user to change their username or password or delete their account.
 function editProf() {
 	let edits = "<img src='/images/exit.jpg' onclick='exitPost();'>" +
 		"<h2>Edit profile:</h2>" +
@@ -134,7 +134,7 @@ function expand(id) {
     $("#"+id).css("height", "auto")
 }
 
-//This function chooses which url to go to and data to display on the feed view.
+//This function chooses and returns which url to go to and data to display on the feed view.
 function pickFeature(feature) {
     if (feature == "search") {
         let descrip = $("#descript").val();
@@ -176,11 +176,12 @@ function newPost() {
     $("#new-post").css("padding", "20px").html(form);
 }
 
+//This function makes the new post div and the edit profile div to shrink/disappear
 function exitPost() {
     $("#new-post").css("padding", "0px").html('')
 }
 
-//
+//This function posts the user's new post to the server to show on the feed
 function createPost() {
     
     let body = $('textarea').val();
