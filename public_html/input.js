@@ -100,6 +100,40 @@ function editProf() {
 	$("#new-post").css("padding", "20px").html(edits);
 }
 
+//This function updates the user's username and/or password
+function changeData(choice) {
+	let path;
+	let val;
+  
+	if (choice == 'user') {
+		path = "/api/user/change/username";
+		val = JSON.stringify( {username: $("#user").val(), username: $("#uname").val()} )
+	} else {
+		path = "/api/user/change/password";
+		val = JSON.stringify( {username: $("#user").val(), password: $("#pword").val()} )
+	}
+
+	$.ajax({
+		url: path,
+		data: {user: val},
+		method: useMethod,
+		success: function(results) {
+    			firstLoad;
+    		}
+	})
+}
+
+//This function deletes the user's account when they choose to
+function deleteUser() {
+	$.ajax({
+		url: "api/user/" + $("#user").val();
+		method: "DELETE",
+		success: function(results) {
+			alert(results);
+			$(window).attr("location", "./index.html")
+		}
+	})
+}
 
 /*This function displays the data as a post on the feed view. Such as every user post, the user's
 own posts, another user's posts, etc. */
