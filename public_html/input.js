@@ -75,7 +75,7 @@ function getUsername() {
     
 }
 
-//
+//This function displays the user's profile picture in the navigation panel
 function displayPFP() {
     $.ajax({
         url: "/api/auth/get/pfp",
@@ -86,7 +86,7 @@ function displayPFP() {
     });
 }
 
-//This function allows the user to change their username or password
+//This function allows the user to change their username or password or delete their account.
 function editProf() {
 	let edits = "<img src='/images/exit.jpg' onclick='exitPost();'>" +
 		"<h2>Edit profile:</h2>" +
@@ -100,6 +100,40 @@ function editProf() {
 	$("#new-post").css("padding", "20px").html(edits);
 }
 
+//This function updates the user's username and/or password
+function changeData(choice) {
+	let path;
+	let val;
+  
+	if (choice == 'user') {
+		path = "/api/user/change/username";
+		val = JSON.stringify( {username: $("#user").val(), username: $("#uname").val()} )
+	} else {
+		path = "/api/user/change/password";
+		val = JSON.stringify( {username: $("#user").val(), password: $("#pword").val()} )
+	}
+
+	$.ajax({
+		url: path,
+		data: {user: val},
+		method: useMethod,
+		success: function(results) {
+    			firstLoad;
+    		}
+	})
+}
+
+//This function deletes the user's account when they choose to
+function deleteUser() {
+	$.ajax({
+		url: "api/user/" + $("#user").val();
+		method: "DELETE",
+		success: function(results) {
+			alert(results);
+			$(window).attr("location", "./index.html")
+		}
+	})
+}
 
 /*This function displays the data as a post on the feed view. Such as every user post, the user's
 own posts, another user's posts, etc. */
@@ -134,7 +168,7 @@ function expand(id) {
     $("#"+id).css("height", "auto")
 }
 
-//This function chooses which url to go to and data to display on the feed view.
+//This function chooses and returns which url to go to and data to display on the feed view.
 function pickFeature(feature) {
     if (feature == "search") {
         let descrip = $("#descript").val();
@@ -163,24 +197,25 @@ function removePost(id) {
 
 //This function creates a div with textboxes above the feed for the user to create a post
 function newPost() {
-    let form = "<img src='/images/exit.jpg' onclick='exitPost();'><h2>New Post</h2> \
-                <textarea>Review/opinion</textarea><br><br> \
-                <h3>Song:</h3><label for=songTitle>Title:</label> \
-                <input type='text' id='songTitle' name='songTitle'><br><br>\
-                <label for=songArtist>Artist:</label> \
-                <input type='text' id='songArtist' name='songArtist'><br><br>\
-                <label for=songAlbum>Album:</label> \
-                <input type='text' id='songAlbum' name='songAlbum'><br><br>\
-                <button onclick='" + createPost(); + "'>Post</button>"
+    let form = "<img src='/images/exit.jpg' onclick='exitPost();'><h2>New Post</h2>" +
+                "<textarea>Review/opinion</textarea><br><br>" +
+                "<h3>Song:</h3><label for=songTitle>Title:</label>" +
+                "<input type='text' id='songTitle' name='songTitle'><br><br>" +
+                "<label for=songArtist>Artist:</label>" +
+                "<input type='text' id='songArtist' name='songArtist'><br><br>" +
+                "<label for=songAlbum>Album:</label>" +
+                "<input type='text' id='songAlbum' name='songAlbum'><br><br>" +
+                "<button onclick='" + createPost(); + "'>Post</button>";
     
-    $("#new-post").css("padding", "20px").html(form)
+    $("#new-post").css("padding", "20px").html(form);
 }
 
+//This function makes the new post div and the edit profile div to shrink/disappear
 function exitPost() {
     $("#new-post").css("padding", "0px").html('')
 }
 
-//
+//This function posts the user's new post to the server to show on the feed
 function createPost() {
     
     let body = $('textarea').val();

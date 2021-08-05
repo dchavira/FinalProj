@@ -24,6 +24,7 @@ app.get("*", (req, res) => {
 mongoose.connect(mongoDBURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 

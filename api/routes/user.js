@@ -2,8 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const songSchema = require("../schema/song");
 const userRouter = express.Router();
+const bcrypt = require("bcrypt");
+const UserSchema = require("../schema/user");
 
 const SongModel = mongoose.model("songs", songSchema);
+const UserModel = mongoose.model("users", UserSchema);
 
 //Adding Song
 //Check dups?
@@ -48,4 +51,52 @@ userRouter.get("/find/:request/:name", (req, res) => {
   });
 });
 
+//change username
+userRouter.post("/change/username", (req, res) => {
+  let data = req.body.user;
+  UserModel.find({ username: data.username }).exec(async (err, results) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (results.length === 1) {
+        results[0].username = data.newUsername;
+        results[0].save();
+        res.status(200).send(results[0]);
+      } else {
+        res.status(401).send("User doesn't exists");
+      }
+    }
+  });
+});
+
+//change password
+userRouter.post("/change/password", async (req, res) => {
+  let data = req.body.user;
+  UserModel.find({ username: data.username }).exec(async (err, results) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (results.length === 1) {
+        const salt = await bcrypt.genSalt(10);
+        bcrypt.hash(data.password, salt).then(async (hash) => {
+          //console.log(results[0].password);
+          results[0].password = hash;
+          results[0].save();
+          res.status(200).send(results[0]);
+        });
+      } else {
+        res.status(401).send("User doesn't exists");
+      }
+    }
+  });
+});
+
+//delete user
+userRouter.delete("/:username", (req, res) => {
+  var username = req.params.username;
+  UserModel.deleteOne({ username: username }).exec((err, results) => {
+    if (err) res.send(err);
+    else res.send("deleted");
+  });
+});
 module.exports = userRouter;
