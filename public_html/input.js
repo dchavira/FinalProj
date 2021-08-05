@@ -163,17 +163,17 @@ function removePost(id) {
 
 //This function creates a div with textboxes above the feed for the user to create a post
 function newPost() {
-    let form = "<img src='/images/exit.jpg' onclick='exitPost();'><h2>New Post</h2> \
-                <textarea>Review/opinion</textarea><br><br> \
-                <h3>Song:</h3><label for=songTitle>Title:</label> \
-                <input type='text' id='songTitle' name='songTitle'><br><br>\
-                <label for=songArtist>Artist:</label> \
-                <input type='text' id='songArtist' name='songArtist'><br><br>\
-                <label for=songAlbum>Album:</label> \
-                <input type='text' id='songAlbum' name='songAlbum'><br><br>\
-                <button onclick='" + createPost(); + "'>Post</button>"
+    let form = "<img src='/images/exit.jpg' onclick='exitPost();'><h2>New Post</h2>" +
+                "<textarea>Review/opinion</textarea><br><br>" +
+                "<h3>Song:</h3><label for=songTitle>Title:</label>" +
+                "<input type='text' id='songTitle' name='songTitle'><br><br>" +
+                "<label for=songArtist>Artist:</label>" +
+                "<input type='text' id='songArtist' name='songArtist'><br><br>" +
+                "<label for=songAlbum>Album:</label>" +
+                "<input type='text' id='songAlbum' name='songAlbum'><br><br>" +
+                "<button onclick='" + createPost(); + "'>Post</button>";
     
-    $("#new-post").css("padding", "20px").html(form)
+    $("#new-post").css("padding", "20px").html(form);
 }
 
 function exitPost() {
