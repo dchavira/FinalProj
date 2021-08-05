@@ -22,7 +22,7 @@ authRouter.post("/login", (req, res) => {
         .then(function (result) {
           if (result) {
             res
-              .cookie("username", results[0].username)
+              .cookie("username", {username: results[0].username })
               .status(200)
               .send("Password was correct!");
           } else res.status(401).send("Password was incorrect");
@@ -33,6 +33,11 @@ authRouter.post("/login", (req, res) => {
     }
   });
 });
+
+authRouter.get("/get/username", (req, res)=>{
+  let uname = req.cookies.username.username;
+  res.send(uname);
+})
 
 authRouter.post("/logoff", (req, res) => {
   res.clearCookie("username").status(200).send("logged off successful");
@@ -56,7 +61,7 @@ authRouter.post("/signup", async (req, res) => {
           user.save((err) => {
             if (err) res.send(err);
           });
-          res.status(200).cookie("name", "authenticated").send(user);
+          res.status(200).cookie("username", {username: user.username}, "authenticated").send(user);
         });
       } else {
         res.status(401).send("User already exists");

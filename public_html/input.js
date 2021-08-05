@@ -1,12 +1,9 @@
-
-//Couldn't get the req.cookies to work so here we are
-var displayName = '';
+/*Melanie Gin and Damian Chavira
+This JS file is our client server, where we hold the ajax. */
 
 //
 function createUser() {
     let uname = $('#username').val();
-    displayName = $('#username').val();
-	let pword = $('#password').val();
 	let user = {username: uname, password: pword};
     let userString=JSON.stringify(user)
     
@@ -26,7 +23,6 @@ function createUser() {
 // This function takes the user to the main page when they are verified, else an alert
 function login() {
     let uname = $('#username').val();
-    displayName = $('#username').val();
 	let pword = $('#password').val();
     let user = {username: uname, password: pword};
     let userString=JSON.stringify(user)
@@ -37,6 +33,9 @@ function login() {
         method: 'POST',
         success: function(results) {
             $(window).attr('location', "/pages/main.html");
+        },
+        error: function(XHR, status, err) {
+            alert(XHR.responseText);
         }
     })
 }
@@ -56,7 +55,14 @@ function logout() {
 
 //This function returns the username to display in the nav panel
 function getUsername() {
-    $("#user").html(displayName)
+    $.ajax({
+        url: "/api/auth/get/username",
+        method: 'GET',
+        success: function(results) {
+           $("#user").html('<h3>' + results + '</h3>')
+        }
+    });
+    
 }
 
 //This function allows the user to change their username or password
@@ -65,12 +71,12 @@ function editProf() {
 		"<h2>Edit profile:</h2>" +
   		"<label for='uname'>Username:</label>" +
 		"<input type='text' id='uname' name='uname'>" +
-		"<button onclick='changeData(\"user\")'<br><br>" +
+		"<button onclick='changeData(\"user\")'>Change</button><br><br>" +
 		"<label for='pword'>Password:</label>" +
 		"<input type='password' id='pword' name='pword'>" +
-		"<button onclick='changeData(\"pass\")'"
+		"<button onclick='changeData(\"pass\")'>Change</button>"
 	
-	$("new-post")..css("padding", "20px")html(edits);
+	$("#new-post").css("padding", "20px").html(edits);
 }
 
 
