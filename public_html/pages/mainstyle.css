@@ -169,6 +169,7 @@ ul {
 #help-feed h2 {
     padding-top: 10px;
     text-align: center;
+    text-decoration: underline;
 }
 
 .resize {

@@ -141,7 +141,7 @@ function pickFeature(feature) {
         let search = $("#search-bar").val();
         return "/find/" + descrip + "/" + search
     } else if (feature == "self") {
-        return "/api/post/get/posts"
+        return "/api/post/get/self" 
     } else if (feature == "feed") {
         return "/api/post/get/posts"
     } else {
