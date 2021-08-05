@@ -31,7 +31,7 @@ postRouter.post("/add/post", (req, res) => {
     res.status(500).send(err);
   }
 });
-
+//Get Post by user
 postRouter.get("/get/:username", (req, res) => {
   const user = req.params.username;
   PostModel.find({ username: user }).exec((err, results) => {
