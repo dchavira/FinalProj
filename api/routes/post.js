@@ -33,18 +33,11 @@ postRouter.post("/add/post", (req, res) => {
 });
 //Get all posts
 postRouter.get("/get/posts", (req, res) => {
-  console.log("here");
   PostModel.find()
     .sort({ Date: -1 })
     .exec((err, results) => {
-      console.log(results);
       if (err) res.send(error);
       else {
-        try {
-          results[0].delete;
-        } catch (err) {
-          console.log(err);
-        }
         res.status(200).send(JSON.stringify(results));
       }
     });
