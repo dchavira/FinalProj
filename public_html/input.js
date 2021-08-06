@@ -157,40 +157,28 @@ own posts, another user's posts, etc. */
 function listPost(feature) {
   let request = pickFeature(feature);
 
-  $.ajax({
-    url: request,
-    method: "GET",
-    success: function (results) {
-      let posts = JSON.parse(results);
+    $.ajax({
+        url: request,
+        method: "GET",
+        success: function (results) {
+            let posts = JSON.parse(results);
+            let list = "";
+            for (var i in posts) {
+                let removeButton = "";
+                if (feature == "self" || posts[i].username == $("#user").text()) {
+                removeButton = '<li><button onclick="removePost(' + "'" + posts[i]._id +
+                "'" + ');">Remove</button></li>';}
 
-      let list = "";
-      for (var i in posts) {
-        let removeButton = "";
-        if (feature == "self") {
-          removeButton = '<li><button onclick="' + removePost(posts[i]._id);
-          +'">Expand</button></li>';
+                //Have list of items in their own div to display in inner html
+                list +='<div class="posts" id="' + posts[i]._id + '"><ul><li><button onclick="listPost(' + 
+                "'" + posts[i].username + "'" + ');">View Profile</button></li><li><button onclick="expand(' + 
+                "'" + posts[i]._id + "'" + ');">Expand</button></li>' + removeButton + "</ul><img src=" +
+                posts[i].image + ' alt="user-icon"><h3>' +  posts[i].username + "</h3>" + posts[i].text +
+                "<br><br>" +  posts[i].song + '</div>'
+            }
+            $("#feed").html(list);
         }
-        //Have list of items in their own div to display in inner html
-        list +=
-          '<div class="posts" id="' +
-          posts[i]._id +
-          '"><ul><li><button onclick="listPost(' +
-          posts[i].username +
-          ');">View Profile</button></li><li><button onclick="expand(' +
-          posts[i]._id +
-          ');">Expand</button></li>' +
-          removeButton +
-          "</ul><img src=" +
-          posts[i].image +
-          ' alt="user-icon"><h3>' +
-          posts[i].username +
-          "</h3><br><br>" +
-          posts[i].text +
-          "</div>";
-      }
-      $("#feed").html(list);
-    },
-  });
+    });
 }
 
 //This function expands the height of the specified post the user clicked on
@@ -203,7 +191,7 @@ function pickFeature(feature) {
   if (feature == "search") {
     let descrip = $("#descript").val();
     let search = $("#search-bar").val();
-    if (descrip == "user") {
+    if (descrip == "User") {
       return "/api/post/get/" + search;
     }
     return "/find/" + descrip + "/" + search;
@@ -220,11 +208,11 @@ function pickFeature(feature) {
 function removePost(postID) {
   $.ajax({
     url: "/api/post/delete",
-    data: { id: postID },
-    method: "DELETE",
+    data: {id: postID},
+    method: "POST",
     success: function (results) {
       alert(results);
-      listPost("feed");
+      listPost("feed") ;
     },
   });
 }
@@ -256,9 +244,11 @@ function createPost() {
   let songTitle = $("#songTitle").val();
   let songArtist = $("#songArtist").val();
   let songAlbum = $("#songAlbum").val();
-
   let post = {
+    username: $("#user").text(),
     text: body,
+    image: $("#pfp").attr("src"),
+    date: "",
     song: { title: songTitle, artist: songArtist, album: songAlbum },
   };
   let postStr = JSON.stringify(post);

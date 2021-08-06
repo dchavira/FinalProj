@@ -12,17 +12,14 @@ const SongModel = mongoose.model("song", songSchema);
 postRouter.post("/add/post", (req, res) => {
   let postObj = JSON.parse(req.body.post);
   var newSong = new SongModel(postObj.song);
-  var post = new PostModel({
-    username: postObj.username,
-    text: postObj.text,
-    image: postObj.image,
-    date: Date(),
-    song: newSong,
-  });
+  
   try {
     newSong.save((err) => {
       if (err) console.log(err);
     });
+    postObj.date = new Date();
+    postObj.song = newSong._id;
+    var post = new PostModel(postObj)
     post.save((err) => {
       if (err) console.log(err);
     });
@@ -33,18 +30,12 @@ postRouter.post("/add/post", (req, res) => {
 });
 //Get all posts
 postRouter.get("/get/posts", (req, res) => {
-  console.log("here");
-  PostModel.find()
+  
+  PostModel.find({})
     .sort({ Date: -1 })
     .exec((err, results) => {
-      console.log(results);
-      if (err) res.send(error);
+      if (err) res.send(err);
       else {
-        try {
-          results[0].delete;
-        } catch (err) {
-          console.log(err);
-        }
         res.status(200).send(JSON.stringify(results));
       }
     });
@@ -56,7 +47,7 @@ postRouter.get("/get/:username", (req, res) => {
   PostModel.find({ username: user })
     .sort({ Date: -1 })
     .exec((err, results) => {
-      if (err) res.send(err);
+      if (err) {res.send(err)}
       else {
         res.status(200).send(JSON.stringify(results));
       }
@@ -65,9 +56,9 @@ postRouter.get("/get/:username", (req, res) => {
 
 //Delete Post
 postRouter.post("/delete", (req, res) => {
-  var id = JSON.parce(req.body.id);
+  var id = req.body.id;
   PostModel.deleteOne({ _id: id }).exec((err, results) => {
-    if (err) res.send(err);
+    if (err) {res.send(err)}
     else res.send("deleted");
   });
 });

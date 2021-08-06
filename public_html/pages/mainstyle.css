@@ -66,15 +66,15 @@ select {
 #search-bar {
     position: relative;
     top: 10px;
-    left: 32%;
-    width: 45%;
+    left: 33%;
+    width: 42%;
     font-size: 16px;
 }
 
 #search-button {
     position: relative;
     top: 10px;
-    left: 30%;
+    left: 33%;
     font-size: 16px;
 }
 
