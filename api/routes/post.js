@@ -30,7 +30,6 @@ postRouter.post("/add/post", (req, res) => {
 });
 //Get all posts
 postRouter.get("/get/posts", (req, res) => {
-  
   PostModel.find({})
     .sort({ Date: -1 })
     .exec((err, results) => {
