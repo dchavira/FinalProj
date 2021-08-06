@@ -162,7 +162,6 @@ function listPost(feature) {
         method: "GET",
         success: function (results) {
             let posts = JSON.parse(results);
-            console.log(results)
             let list = "";
             for (var i in posts) {
                 let removeButton = "";
@@ -193,10 +192,8 @@ function pickFeature(feature) {
   if (feature == "search") {
     let descrip = $("#descript").val();
     let search = $("#search-bar").val();
-    if (descrip == "User") {
-      return "/api/post/get/" + search;
-    }
-    return "/api/song/find/" + descrip + "/" + search;
+    if (descrip == "User") { return "/api/post/get/" + search; }
+    return "/api/song/find/" + search;
   } else if (feature == "self") {
     return "/api/post/get/" + $("#user").text();
   } else if (feature == "feed") {

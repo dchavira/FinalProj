@@ -22,18 +22,9 @@ songRouter.post("/add/song", (req, res) => {
 });
 
 //Find Song(s)/Artists/Albums
-songRouter.get("/find/:request/:name", (req, res) => {
-  let subject = req.params.request;
+songRouter.get("/find/:name", (req, res) => {
   let name = req.params.name;
-  let search;
 
-  if (subject == "song") {
-    search = { title: name };
-  } else if (subject == "artist") {
-    search = { artist: name };
-  } else if (subject == "album") {
-    search = { album: name };
-  }
   PostModel.find({}).populate('song').sort({Date: -1}).exec(function (err, results){
     var matches = []
     for (i in results) {
