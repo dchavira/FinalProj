@@ -5,7 +5,7 @@ const songSchema = require("../schema/song");
 const songRouter = express.Router();
 
 const PostModel = mongoose.model("post", postSchema);
-const SongModel = mongoose.model("songs", songSchema);
+const SongModel = mongoose.model("song", songSchema);
 
 //Adding Song
 songRouter.post("/add/song", (req, res) => {
@@ -34,14 +34,28 @@ songRouter.get("/find/:request/:name", (req, res) => {
   } else if (subject == "album") {
     search = { album: name };
   }
-
+  
   SongModel.find(search).exec(function (err, results) {
-    if (err) {
-      throw err;
-    } else {
-      res.send(JSON.stringify(results));
+    var matches = []
+    if (err) {throw err; } 
+    else {
+      for (i in results) {
+        PostModel.findOne({song: results[i]._id})
+        .populate('song')
+        .exec(function (error, post){
+          if (error) {console.log(error) }
+          else {
+            matches.push(post)
+            console.log("pushed")
+          }
+        })
+      }
+      console.log("bye")
+    res.send(JSON.stringify(matches))
     }
-  });
-});
+  })
+  
+})
+
 
 module.exports = songRouter;

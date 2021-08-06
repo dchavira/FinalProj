@@ -47,6 +47,7 @@ postRouter.get("/get/posts", (req, res) => {
 postRouter.get("/get/:username", (req, res) => {
   const user = req.params.username;
   PostModel.find({ username: user })
+    .populate('song')
     .sort({ Date: -1 })
     .exec((err, results) => {
       if (err) {res.send(err)}
