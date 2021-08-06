@@ -4,13 +4,12 @@ const app = express();
 const Cookies = require("js-cookie");
 const db = mongoose.connection;
 const mongoDBURL = "mongodb://127.0.0.1/finalDB";
-const port = 3000;
+const port = 8080;
 const apiRouter = require("./api/");
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
 let sessionKey = {};
-console.log(sessionKey);
 /*This function removes the expired user's cookie from the dictionary
 which essentially logs them out of the site.*/
 function clearSession() {
