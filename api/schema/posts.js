@@ -7,6 +7,6 @@ var PostSchema = new Schema({
   text: String,
   image: String,
   date: {type: Date, default: Date.now},
-  song: {type: Schema.Types.ObjectId, ref: 'SongModel'} || null,
+  song: {type: Schema.Types.ObjectId, ref: 'song'}
 });
 module.exports = PostSchema;

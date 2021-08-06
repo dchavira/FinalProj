@@ -16,7 +16,7 @@ which essentially logs them out of the site.*/
 function clearSession() {
   let now = Date.now();
   for (let i in sessionKey) {
-    if (sessionKey.login.time < now - 2000) {
+    if (sessionKey.login.time < now - 600000) {
       //10 minute session
       delete sessionKey[i].time;
       return true;

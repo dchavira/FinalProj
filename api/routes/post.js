@@ -30,10 +30,13 @@ postRouter.post("/add/post", (req, res) => {
 });
 //Get all posts
 postRouter.get("/get/posts", (req, res) => {
+  
   PostModel.find({})
+    .populate('song')
     .sort({ Date: -1 })
     .exec((err, results) => {
-      if (err) res.send(err);
+      if (err) {
+      res.send(err)}
       else {
         res.status(200).send(JSON.stringify(results));
       }

@@ -174,7 +174,8 @@ function listPost(feature) {
                 "'" + posts[i].username + "'" + ');">View Profile</button></li><li><button onclick="expand(' + 
                 "'" + posts[i]._id + "'" + ');">Expand</button></li>' + removeButton + "</ul><img src=" +
                 posts[i].image + ' alt="user-icon"><h3>' +  posts[i].username + "</h3>" + posts[i].text +
-                "<br><br>" +  posts[i].song + '</div>'
+                "<br><br>Title: " +  posts[i].song.title + '<br>Artist: ' + posts[i].song.artist + '<br>Album: ' +
+                posts[i].song.album + '</div>'
             }
             $("#feed").html(list);
         }
@@ -222,11 +223,11 @@ function newPost() {
   let form =
     "<img src='/images/exit.jpg' onclick='exitPost();'><h2>New Post</h2>" +
     "<textarea></textarea><br><br>" +
-    "<h3>Song:</h3><label for=songTitle>Title:</label>" +
+    "<h3>Song:</h3><label for=songTitle>Title: </label>" +
     "<input type='text' id='songTitle' name='songTitle'><br><br>" +
-    "<label for=songArtist>Artist:</label>" +
+    "<label for=songArtist>Artist: </label>" +
     "<input type='text' id='songArtist' name='songArtist'><br><br>" +
-    "<label for=songAlbum>Album:</label>" +
+    "<label for=songAlbum>Album: </label>" +
     "<input type='text' id='songAlbum' name='songAlbum'><br><br>" +
     "<button onclick='createPost();'>Post</button>";
 
