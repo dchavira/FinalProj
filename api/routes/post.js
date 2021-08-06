@@ -31,31 +31,36 @@ postRouter.post("/add/post", (req, res) => {
     res.status(500).send(err);
   }
 });
+//Get all posts
+postRouter.get("/get/posts", (req, res) => {
+  console.log("here");
+  PostModel.find()
+    .sort({ Date: -1 })
+    .exec((err, results) => {
+      console.log(results);
+      if (err) res.send(error);
+      else {
+        try {
+          results[0].delete;
+        } catch (err) {
+          console.log(err);
+        }
+        res.status(200).send(JSON.stringify(results));
+      }
+    });
+});
+
 //Get Post by user
 postRouter.get("/get/:username", (req, res) => {
   const user = req.params.username;
-  PostModel.find({ username: user }).sort({Date: -1}).exec((err, results) => {
-    if (err) res.send(err);
-    else {
-      res.status(200).send(JSON.stringify(results));
-    }
-  });
-});
-//Get all posts
-postRouter.get("/get/posts", (req, res) => {
-  console.log("here")
-  PostModel.find().sort({Date: -1}).exec((err, results) => {
-    console.log(results)
-    if (err) res.send(error);
-    else {
-      try {
-        results[0].delete;
-      } catch (err) {
-        console.log(err);
+  PostModel.find({ username: user })
+    .sort({ Date: -1 })
+    .exec((err, results) => {
+      if (err) res.send(err);
+      else {
+        res.status(200).send(JSON.stringify(results));
       }
-      res.status(200).send(JSON.stringify(results));
-    }
-  });
+    });
 });
 
 //Delete Post
