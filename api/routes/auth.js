@@ -6,9 +6,8 @@ const User = require("../schema/user");
 const authRouter = express.Router();
 const UserModel = mongoose.model("user", User);
 
-
 authRouter.post("/login", (req, res) => {
-  const userObj = JSON.parse(req.body.user)
+  const userObj = JSON.parse(req.body.user);
   const username = userObj.user_id;
   const password = userObj.password;
   UserModel.find({ username: userObj.username }).exec(async (err, results) => {
@@ -22,7 +21,10 @@ authRouter.post("/login", (req, res) => {
         .then(function (result) {
           if (result) {
             res
-              .cookie("login", {username: results[0].username })
+              .cookie("login", {
+                username: results[0].username,
+                time: Date.now(),
+              })
               .status(200)
               .send("Password was correct!");
           } else res.status(401).send("Password was incorrect");
@@ -34,20 +36,21 @@ authRouter.post("/login", (req, res) => {
   });
 });
 
-authRouter.get("/get/username", (req, res)=>{
+authRouter.get("/get/username", (req, res) => {
   let uname = req.cookies.login.username;
   res.send(uname);
-})
+});
 
-authRouter.get("/get/pfp", (req, res)=>{
+authRouter.get("/get/pfp", (req, res) => {
   let uname = req.cookies.login.username;
-  UserModel.find({username: uname}).exec((err, user)=> {
-    if (err) {console.log("Error getting user")
+  UserModel.find({ username: uname }).exec((err, user) => {
+    if (err) {
+      console.log("Error getting user");
     } else {
       res.send(user[0].image);
     }
-  })
-})
+  });
+});
 
 authRouter.post("/logoff", (req, res) => {
   res.clearCookie("username").status(200).send("logged off successful");
@@ -72,7 +75,10 @@ authRouter.post("/signup", async (req, res) => {
           user.save((err) => {
             if (err) res.send(err);
           });
-          res.status(200).cookie("login", {username: user.username}, "authenticated").send(user);
+          res
+            .status(200)
+            .cookie("login", { username: user.username }, "authenticated")
+            .send(user);
         });
       } else {
         res.status(401).send("User already exists");
