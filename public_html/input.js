@@ -150,7 +150,6 @@ function listPost(feature) {
         url: request,
         method: 'GET',
         success: function(results) {
-            console.log(results)
             let posts = JSON.parse(results);
             let list = '';
             for (var i in posts) {

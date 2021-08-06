@@ -38,8 +38,6 @@ songRouter.get("/find/:request/:name", (req, res) => {
   SongModel.find(search).exec(function (err, results) {
     if (err) {
       throw err;
-    } else if (results.length == 0) {
-      res.send("No results found");
     } else {
       res.send(JSON.stringify(results));
     }
