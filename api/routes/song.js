@@ -34,27 +34,16 @@ songRouter.get("/find/:request/:name", (req, res) => {
   } else if (subject == "album") {
     search = { album: name };
   }
-  
-  SongModel.find(search).exec(function (err, results) {
+  PostModel.find({}).populate('song').sort({Date: -1}).exec(function (err, results){
     var matches = []
-    if (err) {throw err; } 
-    else {
-      for (i in results) {
-        PostModel.findOne({song: results[i]._id})
-        .populate('song')
-        .exec(function (error, post){
-          if (error) {console.log(error) }
-          else {
-            matches.push(post)
-            console.log("pushed")
-          }
-        })
+    for (i in results) {
+      if (results[i].song.title == name) {matches.push(results[i])
+      } else if (results[i].song.artist == name) {matches.push(results[i])
+      } else if (results[i].song.album == name) {matches.push(results[i])
       }
-      console.log("bye")
-    res.send(JSON.stringify(matches))
     }
+    res.send(JSON.stringify(matches))
   })
-  
 })
 
 
