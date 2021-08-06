@@ -90,48 +90,54 @@ function displayPFP() {
 function editProf() {
 	let edits = "<img src='/images/exit.jpg' onclick='exitPost();'>" +
 		"<h2>Edit profile:</h2>" +
-  		"<label for='uname'>Username:</label>" +
+  		"<label for='uname'>Username: </label>" +
 		"<input type='text' id='uname' name='uname'>" +
-		"<button onclick='changeData(\"user\")'>Change</button><br><br>" +
-		"<label for='pword'>Password:</label>" +
+		"<button onclick='changeData(" + '"user"' + ")'>Change</button><br><br>" +
+		"<label for='pword'>Password: </label>" +
 		"<input type='password' id='pword' name='pword'>" +
-		"<button onclick='changeData(\"pass\")'>Change</button>"
+		"<button onclick='changeData(" + '"pass"' + ")'>Change</button><br><br><br>" +
+        "<button onclick='deleteUser();'>DELETE ACCOUNT</button>"
 	
 	$("#new-post").css("padding", "20px").html(edits);
 }
 
 //This function updates the user's username and/or password
 function changeData(choice) {
-	let path;
+    let path;
 	let val;
   
 	if (choice == 'user') {
 		path = "/api/user/change/username";
-		val = JSON.stringify( {username: $("#user").val(), username: $("#uname").val()} )
+		val = JSON.stringify( {username: $("#user").text(), newUsername: $("#uname").val()} )
 	} else {
 		path = "/api/user/change/password";
-		val = JSON.stringify( {username: $("#user").val(), password: $("#pword").val()} )
+		val = JSON.stringify( {username: $("#user").text(), password: $("#pword").val()} )
 	}
 
 	$.ajax({
 		url: path,
 		data: {user: val},
-		method: useMethod,
+		method: "POST",
 		success: function(results) {
-    			firstLoad;
+                alert(results)
+    			firstLoad() ;
     		}
 	})
 }
 
 //This function deletes the user's account when they choose to
 function deleteUser() {
+    let username = $("#user").text()
 	$.ajax({
-		url: "api/user/" + $("#user").val();
+		url: "/api/user/delete/" + username,
 		method: "DELETE",
 		success: function(results) {
 			alert(results);
 			$(window).attr("location", "./index.html")
-		}
+		},
+        error: function(XHR, status, error){
+            alert(XHR.responseText)
+        }
 	})
 }
 
@@ -144,8 +150,9 @@ function listPost(feature) {
         url: request,
         method: 'GET',
         success: function(results) {
+            //console.log(results)
             let posts = JSON.parse(results);
-            let list = '';
+            /*let list = '';
             for (var i in posts) {
                 let removeButton = "";
                 if (feature == "self") {
@@ -157,8 +164,8 @@ function listPost(feature) {
                         posts[i]._id + ');">Expand</button></li>' + removeButton + '</ul><img src=' +
                         posts[i].image + ' alt="user-icon"><h3>' + posts[i].username + '</h3><br><br>' + 
                         posts[i].text + '</div>'
-            }
-            $("#feed").html(list);
+            }*/
+            $("#feed").html(posts);
         }
     });
 }
@@ -175,11 +182,11 @@ function pickFeature(feature) {
         let search = $("#search-bar").val();
         return "/find/" + descrip + "/" + search
     } else if (feature == "self") {
-        return "/api/post/get/self" 
+        return "/api/post/get/" + $("#user").text() 
     } else if (feature == "feed") {
         return "/api/post/get/posts"
     } else {
-        return "/api/post/get/posts/" + feature
+        return "/api/post/get/posts/" + feature //username
     }
 }
 
@@ -191,6 +198,7 @@ function removePost(id) {
         method: 'DELETE',
         success: function(results) {
             alert(results);
+            listPost('feed');
         }
     });
 }
@@ -198,14 +206,14 @@ function removePost(id) {
 //This function creates a div with textboxes above the feed for the user to create a post
 function newPost() {
     let form = "<img src='/images/exit.jpg' onclick='exitPost();'><h2>New Post</h2>" +
-                "<textarea>Review/opinion</textarea><br><br>" +
+                "<textarea></textarea><br><br>" +
                 "<h3>Song:</h3><label for=songTitle>Title:</label>" +
                 "<input type='text' id='songTitle' name='songTitle'><br><br>" +
                 "<label for=songArtist>Artist:</label>" +
                 "<input type='text' id='songArtist' name='songArtist'><br><br>" +
                 "<label for=songAlbum>Album:</label>" +
                 "<input type='text' id='songAlbum' name='songAlbum'><br><br>" +
-                "<button onclick='" + createPost(); + "'>Post</button>";
+                "<button onclick='createPost();'>Post</button>";
     
     $("#new-post").css("padding", "20px").html(form);
 }
@@ -217,7 +225,6 @@ function exitPost() {
 
 //This function posts the user's new post to the server to show on the feed
 function createPost() {
-    
     let body = $('textarea').val();
     let songTitle = $('#songTitle').val();
     let songArtist = $('#songArtist').val();
@@ -228,11 +235,17 @@ function createPost() {
     let postStr = JSON.stringify(post);
     
     $.ajax({
-        url: "api/post/add/post",
+        url: "/api/post/add/post",
         data: {post: postStr},
         method: 'POST',
         success: function(results) {
+            let message = "<img src='/images/exit.jpg' onclick='exitPost();'>" +
+                            results
+            $("#new-post").css("padding", "20px").html(message);
             listPost('feed');
+        },
+        error: function(XHR, status, err) {
+            alert(XHR.responseText);
         }
     });
 }

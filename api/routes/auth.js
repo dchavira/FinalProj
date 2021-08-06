@@ -22,7 +22,7 @@ authRouter.post("/login", (req, res) => {
         .then(function (result) {
           if (result) {
             res
-              .cookie("username", {username: results[0].username })
+              .cookie("login", {username: results[0].username })
               .status(200)
               .send("Password was correct!");
           } else res.status(401).send("Password was incorrect");
@@ -35,12 +35,12 @@ authRouter.post("/login", (req, res) => {
 });
 
 authRouter.get("/get/username", (req, res)=>{
-  let uname = req.cookies.username.username;
+  let uname = req.cookies.login.username;
   res.send(uname);
 })
 
 authRouter.get("/get/pfp", (req, res)=>{
-  let uname = req.cookies.username.username;
+  let uname = req.cookies.login.username;
   UserModel.find({username: uname}).exec((err, user)=> {
     if (err) {console.log("Error getting user")
     } else {
@@ -72,7 +72,7 @@ authRouter.post("/signup", async (req, res) => {
           user.save((err) => {
             if (err) res.send(err);
           });
-          res.status(200).cookie("username", {username: user.username}, "authenticated").send(user);
+          res.status(200).cookie("login", {username: user.username}, "authenticated").send(user);
         });
       } else {
         res.status(401).send("User already exists");

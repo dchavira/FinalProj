@@ -34,16 +34,18 @@ postRouter.post("/add/post", (req, res) => {
 //Get Post by user
 postRouter.get("/get/:username", (req, res) => {
   const user = req.params.username;
-  PostModel.find({ username: user }).exec((err, results) => {
+  PostModel.find({ username: user }).sort({Date: -1}).exec((err, results) => {
     if (err) res.send(err);
     else {
-      res.status(200).send(results);
+      res.status(200).send(JSON.stringify(results));
     }
   });
 });
 //Get all posts
 postRouter.get("/get/posts", (req, res) => {
-  const posts = PostModel.find().exec((err, results) => {
+  console.log("here")
+  PostModel.find().sort({Date: -1}).exec((err, results) => {
+    console.log(results)
     if (err) res.send(error);
     else {
       try {
@@ -51,13 +53,13 @@ postRouter.get("/get/posts", (req, res) => {
       } catch (err) {
         console.log(err);
       }
-      res.status(200).send(results);
+      res.status(200).send(JSON.stringify(results));
     }
   });
 });
 
 //Delete Post
-postRouter.delete("/delete", (req, res) => {
+postRouter.post("/delete", (req, res) => {
   var id = req.body.id;
   PostModel.deleteOne({ _id: id }).exec((err, results) => {
     if (err) res.send(err);

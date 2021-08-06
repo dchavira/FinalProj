@@ -53,7 +53,7 @@ userRouter.get("/find/:request/:name", (req, res) => {
 
 //change username
 userRouter.post("/change/username", (req, res) => {
-  let data = req.body.user;
+  let data = JSON.parse(req.body.user);
   UserModel.find({ username: data.username }).exec(async (err, results) => {
     if (err) {
       console.log(err);
@@ -61,7 +61,9 @@ userRouter.post("/change/username", (req, res) => {
       if (results.length === 1) {
         results[0].username = data.newUsername;
         results[0].save();
-        res.status(200).send(results[0]);
+        res.cookie("login", {username: data.newUsername});
+        res.clearCookie(data.username);
+        res.status(200).send("Username Changed");
       } else {
         res.status(401).send("User doesn't exists");
       }
@@ -71,7 +73,7 @@ userRouter.post("/change/username", (req, res) => {
 
 //change password
 userRouter.post("/change/password", async (req, res) => {
-  let data = req.body.user;
+  let data = JSON.parse(req.body.user);
   UserModel.find({ username: data.username }).exec(async (err, results) => {
     if (err) {
       console.log(err);
@@ -82,7 +84,7 @@ userRouter.post("/change/password", async (req, res) => {
           //console.log(results[0].password);
           results[0].password = hash;
           results[0].save();
-          res.status(200).send(results[0]);
+          res.status(200).send("Password Changed");
         });
       } else {
         res.status(401).send("User doesn't exists");
@@ -92,9 +94,9 @@ userRouter.post("/change/password", async (req, res) => {
 });
 
 //delete user
-userRouter.delete("/:username", (req, res) => {
-  var username = req.params.username;
-  UserModel.deleteOne({ username: username }).exec((err, results) => {
+userRouter.delete("/delete/:username", (req, res) => {
+  var user = req.params.username;
+  UserModel.deleteOne({ username: user }).exec((err, results) => {
     if (err) res.send(err);
     else res.send("deleted");
   });
