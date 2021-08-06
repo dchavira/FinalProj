@@ -150,9 +150,9 @@ function listPost(feature) {
         url: request,
         method: 'GET',
         success: function(results) {
-            //console.log(results)
+            console.log(results)
             let posts = JSON.parse(results);
-            /*let list = '';
+            let list = '';
             for (var i in posts) {
                 let removeButton = "";
                 if (feature == "self") {
@@ -164,8 +164,8 @@ function listPost(feature) {
                         posts[i]._id + ');">Expand</button></li>' + removeButton + '</ul><img src=' +
                         posts[i].image + ' alt="user-icon"><h3>' + posts[i].username + '</h3><br><br>' + 
                         posts[i].text + '</div>'
-            }*/
-            $("#feed").html(posts);
+            }
+            $("#feed").html(list);
         }
     });
 }
@@ -180,21 +180,22 @@ function pickFeature(feature) {
     if (feature == "search") {
         let descrip = $("#descript").val();
         let search = $("#search-bar").val();
+        if (descrip == "user") { return "/api/post/get/" + search}
         return "/find/" + descrip + "/" + search
     } else if (feature == "self") {
         return "/api/post/get/" + $("#user").text() 
     } else if (feature == "feed") {
         return "/api/post/get/posts"
     } else {
-        return "/api/post/get/posts/" + feature //username
+        return "/api/post/get/" + feature //username
     }
 }
 
 //This function removes the user's posts if they choose to remove it
-function removePost(id) {
+function removePost(postID) {
     $.ajax({
         url: "/api/post/delete",
-        data: id,
+        data: {id: postID},
         method: 'DELETE',
         success: function(results) {
             alert(results);

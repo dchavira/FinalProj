@@ -60,7 +60,7 @@ postRouter.get("/get/posts", (req, res) => {
 
 //Delete Post
 postRouter.post("/delete", (req, res) => {
-  var id = req.body.id;
+  var id = JSON.parce(req.body.id);
   PostModel.deleteOne({ _id: id }).exec((err, results) => {
     if (err) res.send(err);
     else res.send("deleted");

@@ -1,12 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const postSchema = require("../schema/posts");
 const songSchema = require("../schema/song");
 const songRouter = express.Router();
 
+const PostModel = mongoose.model("post", postSchema);
 const SongModel = mongoose.model("songs", songSchema);
 
 //Adding Song
-//Check dups?
 songRouter.post("/add/song", (req, res) => {
   var song = new SongModel(req.body);
 
@@ -22,13 +23,10 @@ songRouter.post("/add/song", (req, res) => {
 
 //Find Song(s)/Artists/Albums
 songRouter.get("/find/:request/:name", (req, res) => {
-  let subject = req.params.request.toLowerCase();
-  let name = req.params.name.toLowerCase();
-  name = name.charAt(0).toUpperCase() + name.slice(1);
+  let subject = req.params.request;
+  let name = req.params.name;
   let search;
 
-  /*THIS WOULD PROBABLY BE BETTER IF WE SEND THE INFO AS AN OBJECT AND SKIP 
-  THIS PART TO SIMPLY FIND*/
   if (subject == "song") {
     search = { title: name };
   } else if (subject == "artist") {
